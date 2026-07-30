@@ -1,0 +1,206 @@
+[
+  {
+    "annee": 1992,
+    "ecrans": 4297,
+    "fauteuils": 931206,
+    "etablissements": 2140
+  },
+  {
+    "annee": 1993,
+    "ecrans": 4272,
+    "fauteuils": 916642,
+    "etablissements": 2110
+  },
+  {
+    "annee": 1994,
+    "ecrans": 4291,
+    "fauteuils": 908619,
+    "etablissements": 2106
+  },
+  {
+    "annee": 1995,
+    "ecrans": 4377,
+    "fauteuils": 921975,
+    "etablissements": 2119
+  },
+  {
+    "annee": 1996,
+    "ecrans": 4520,
+    "fauteuils": 920177,
+    "etablissements": 2141
+  },
+  {
+    "annee": 1997,
+    "ecrans": 4644,
+    "fauteuils": 938179,
+    "etablissements": 2142
+  },
+  {
+    "annee": 1998,
+    "ecrans": 4763,
+    "fauteuils": 956746,
+    "etablissements": 2146
+  },
+  {
+    "annee": 1999,
+    "ecrans": 4985,
+    "fauteuils": 993307,
+    "etablissements": 2173
+  },
+  {
+    "annee": 2000,
+    "ecrans": 5112,
+    "fauteuils": 1020102,
+    "etablissements": 2159
+  },
+  {
+    "annee": 2001,
+    "ecrans": 5196,
+    "fauteuils": 1030938,
+    "etablissements": 2151
+  },
+  {
+    "annee": 2002,
+    "ecrans": 5248,
+    "fauteuils": 1044298,
+    "etablissements": 2142
+  },
+  {
+    "annee": 2003,
+    "ecrans": 5274,
+    "fauteuils": 1047703,
+    "etablissements": 2128
+  },
+  {
+    "annee": 2004,
+    "ecrans": 5272,
+    "fauteuils": 1038608,
+    "etablissements": 2100
+  },
+  {
+    "annee": 2005,
+    "ecrans": 5274,
+    "fauteuils": 1009515,
+    "etablissements": 2079
+  },
+  {
+    "annee": 2006,
+    "ecrans": 5282,
+    "fauteuils": 1008887,
+    "etablissements": 2065
+  },
+  {
+    "annee": 2007,
+    "ecrans": 5317,
+    "fauteuils": 1012600,
+    "etablissements": 2056
+  },
+  {
+    "annee": 2008,
+    "ecrans": 5395,
+    "fauteuils": 1026237,
+    "etablissements": 2071
+  },
+  {
+    "annee": 2009,
+    "ecrans": 5478,
+    "fauteuils": 1043468,
+    "etablissements": 2073
+  },
+  {
+    "annee": 2010,
+    "ecrans": 5468,
+    "fauteuils": 1038960,
+    "etablissements": 2050
+  },
+  {
+    "annee": 2011,
+    "ecrans": 5468,
+    "fauteuils": 1038632,
+    "etablissements": 2034
+  },
+  {
+    "annee": 2012,
+    "ecrans": 5508,
+    "fauteuils": 1045783,
+    "etablissements": 2035
+  },
+  {
+    "annee": 2013,
+    "ecrans": 5589,
+    "fauteuils": 1059685,
+    "etablissements": 2027
+  },
+  {
+    "annee": 2014,
+    "ecrans": 5647,
+    "fauteuils": 1065535,
+    "etablissements": 2020
+  },
+  {
+    "annee": 2015,
+    "ecrans": 5741,
+    "fauteuils": 1081588,
+    "etablissements": 2033
+  },
+  {
+    "annee": 2016,
+    "ecrans": 5842,
+    "fauteuils": 1098281,
+    "etablissements": 2044
+  },
+  {
+    "annee": 2017,
+    "ecrans": 5913,
+    "fauteuils": 1106167,
+    "etablissements": 2046
+  },
+  {
+    "annee": 2018,
+    "ecrans": 5983,
+    "fauteuils": 1113563,
+    "etablissements": 2040
+  },
+  {
+    "annee": 2019,
+    "ecrans": 6114,
+    "fauteuils": 1128422,
+    "etablissements": 2045
+  },
+  {
+    "annee": 2020,
+    "ecrans": 6127,
+    "fauteuils": 1121514,
+    "etablissements": 2041
+  },
+  {
+    "annee": 2021,
+    "ecrans": 6192,
+    "fauteuils": 1123669,
+    "etablissements": 2030
+  },
+  {
+    "annee": 2022,
+    "ecrans": 6298,
+    "fauteuils": 1136960,
+    "etablissements": 2061
+  },
+  {
+    "annee": 2023,
+    "ecrans": 6328,
+    "fauteuils": 1136844,
+    "etablissements": 2059
+  },
+  {
+    "annee": 2024,
+    "ecrans": 6355,
+    "fauteuils": 1128689,
+    "etablissements": 2053
+  },
+  {
+    "annee": 2025,
+    "ecrans": 6401,
+    "fauteuils": 1129286,
+    "etablissements": 2060
+  }
+]

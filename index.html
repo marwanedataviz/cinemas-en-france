@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Cinémas en France</title>
+    <link rel="stylesheet" href="style.css?v=21">
+    <style>
+        body { padding: 0; }
+
+        .hero {
+            padding: 50px 24px 40px 24px;
+        }
+        .hero-interieur {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .micro-grille {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(20,23,43,0.2);
+            border: 1px solid rgba(20,23,43,0.2);
+            margin-bottom: 34px;
+            max-width: 640px;
+        }
+        .micro-grille div {
+            background: var(--rouge);
+            padding: 10px 12px;
+            font-family: 'Archivo', sans-serif;
+        }
+        .micro-grille .valeur {
+            font-family: 'Archivo Black', sans-serif;
+            color: var(--encre);
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        .micro-grille .label {
+            color: rgba(20,23,43,0.65);
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-top: 4px;
+        }
+
+        .hero h1 {
+            color: var(--encre);
+            font-size: clamp(2.4rem, 6.4vw, 4.4rem);
+            line-height: 0.95;
+            margin: 0 0 34px 0;
+        }
+
+        .cadre-carte {
+            border: 5px solid #fff;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        #zone-carte {
+            width: 100%;
+            height: 540px;
+            border: none;
+            display: block;
+        }
+
+        #zone-onglet {
+            width: 100%;
+            height: 1560px;
+            border: none;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <div class="hero-interieur">
+            <span class="tag">Atlas du cinéma français</span>
+            <h1>Cinémas<br>en France</h1>
+
+            <div class="micro-grille">
+                <div><div class="valeur">2 081</div><div class="label">Cinémas</div></div>
+                <div><div class="valeur">96</div><div class="label">Départements</div></div>
+                <div><div class="valeur">1938</div><div class="label">Première donnée</div></div>
+                <div><div class="valeur">2025</div><div class="label">Dernière donnée</div></div>
+            </div>
+
+            <div class="cadre-carte">
+                <iframe id="zone-carte" src="carte.html?v=21"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-onglets">
+        <button class="onglet-bouton actif" data-page="onglet_a.html?v=21">Entrées &amp; recettes</button>
+        <button class="onglet-bouton" data-page="onglet_b.html?v=21">Évolution du parc</button>
+        <button class="onglet-bouton" data-page="onglet_c.html?v=21">Répartition territoriale</button>
+        <button class="onglet-bouton" data-page="onglet_d.html?v=21">Profil du public</button>
+        <button class="onglet-bouton" data-page="onglet_e.html?v=21">Structure de l'exploitation</button>
+    </div>
+
+    <iframe id="zone-onglet" src="onglet_a.html?v=21"></iframe>
+
+    <script>
+        var boutons = document.querySelectorAll('.onglet-bouton');
+        var iframeOnglet = document.getElementById('zone-onglet');
+
+        function ajusterHauteur() {
+            try {
+                var hauteur = iframeOnglet.contentWindow.document.body.scrollHeight;
+                iframeOnglet.style.height = (hauteur + 20) + 'px';
+            } catch (e) {
+                // Si jamais l'accès au contenu échoue, on garde une hauteur de secours
+                iframeOnglet.style.height = '1200px';
+            }
+        }
+
+        iframeOnglet.addEventListener('load', ajusterHauteur);
+
+        boutons.forEach(function(bouton) {
+            bouton.addEventListener('click', function() {
+                boutons.forEach(function(b) { b.classList.remove('actif'); });
+                this.classList.add('actif');
+                iframeOnglet.src = this.getAttribute('data-page');
+            });
+        });
+    </script>
+
+</body>
+</html>

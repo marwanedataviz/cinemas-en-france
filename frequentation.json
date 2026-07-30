@@ -1,0 +1,524 @@
+[
+  {
+    "annee": 1938.0,
+    "entrees": 452513100.0,
+    "recette": null,
+    "recette_moyenne": null
+  },
+  {
+    "annee": 1939.0,
+    "entrees": 373255500.0,
+    "recette": null,
+    "recette_moyenne": null
+  },
+  {
+    "annee": 1940.0,
+    "entrees": 255638600.0,
+    "recette": null,
+    "recette_moyenne": null
+  },
+  {
+    "annee": 1942.0,
+    "entrees": 281500000.0,
+    "recette": null,
+    "recette_moyenne": null
+  },
+  {
+    "annee": 1943.0,
+    "entrees": 304500000.0,
+    "recette": null,
+    "recette_moyenne": null
+  },
+  {
+    "annee": 1944.0,
+    "entrees": 245400000.0,
+    "recette": null,
+    "recette_moyenne": null
+  },
+  {
+    "annee": 1945.0,
+    "entrees": 402000000.0,
+    "recette": null,
+    "recette_moyenne": null
+  },
+  {
+    "annee": 1946.0,
+    "entrees": 369000000.0,
+    "recette": null,
+    "recette_moyenne": null
+  },
+  {
+    "annee": 1947.0,
+    "entrees": 423700000.0,
+    "recette": 21382499.15771918,
+    "recette_moyenne": 0.05046612970903748
+  },
+  {
+    "annee": 1948.0,
+    "entrees": 402000000.0,
+    "recette": 30037029.866286967,
+    "recette_moyenne": 0.074718979766883
+  },
+  {
+    "annee": 1949.0,
+    "entrees": 387700000.0,
+    "recette": 33804045.08222338,
+    "recette_moyenne": 0.0871912434413809
+  },
+  {
+    "annee": 1950.0,
+    "entrees": 370700000.0,
+    "recette": 39427889.32811145,
+    "recette_moyenne": 0.10636064021610857
+  },
+  {
+    "annee": 1951.0,
+    "entrees": 372800000.0,
+    "recette": 50750277.83833392,
+    "recette_moyenne": 0.1361327195234279
+  },
+  {
+    "annee": 1952.0,
+    "entrees": 359600000.0,
+    "recette": 59040455.39570429,
+    "recette_moyenne": 0.1641836913117472
+  },
+  {
+    "annee": 1953.0,
+    "entrees": 370600000.0,
+    "recette": 63444707.50369308,
+    "recette_moyenne": 0.1711945696268027
+  },
+  {
+    "annee": 1954.0,
+    "entrees": 382800000.0,
+    "recette": 69338386.51009136,
+    "recette_moyenne": 0.18113476099814882
+  },
+  {
+    "annee": 1955.0,
+    "entrees": 394800000.0,
+    "recette": 73504818.15118979,
+    "recette_moyenne": 0.18618241679632672
+  },
+  {
+    "annee": 1956.0,
+    "entrees": 398800000.0,
+    "recette": 75851008.52647354,
+    "recette_moyenne": 0.19019811566317335
+  },
+  {
+    "annee": 1957.0,
+    "entrees": 411600000.0,
+    "recette": 83564928.7986865,
+    "recette_moyenne": 0.20302460835443756
+  },
+  {
+    "annee": 1958.0,
+    "entrees": 371000000.0,
+    "recette": 90705640.7660868,
+    "recette_moyenne": 0.24448959775225554
+  },
+  {
+    "annee": 1959.0,
+    "entrees": 353700000.0,
+    "recette": 90739179.54987903,
+    "recette_moyenne": 0.2565427750915438
+  },
+  {
+    "annee": 1960.0,
+    "entrees": 354600000.0,
+    "recette": 100906004.50944193,
+    "recette_moyenne": 0.2845629004778396
+  },
+  {
+    "annee": 1961.0,
+    "entrees": 328300000.0,
+    "recette": 98768669.28777345,
+    "recette_moyenne": 0.3008488251226727
+  },
+  {
+    "annee": 1962.0,
+    "entrees": 311700000.0,
+    "recette": 105950542.48982784,
+    "recette_moyenne": 0.33991191045822217
+  },
+  {
+    "annee": 1963.0,
+    "entrees": 291200000.0,
+    "recette": 112984540.14516196,
+    "recette_moyenne": 0.38799636038860563
+  },
+  {
+    "annee": 1964.0,
+    "entrees": 275800000.0,
+    "recette": 116495441.01213951,
+    "recette_moyenne": 0.42239101164662624
+  },
+  {
+    "annee": 1965.0,
+    "entrees": 259100000.0,
+    "recette": 120492654.24410442,
+    "recette_moyenne": 0.4650430499579483
+  },
+  {
+    "annee": 1966.0,
+    "entrees": 234170000.0,
+    "recette": 119695345.88395277,
+    "recette_moyenne": 0.5111472258784334
+  },
+  {
+    "annee": 1967.0,
+    "entrees": 211450000.0,
+    "recette": 119629183.01047173,
+    "recette_moyenne": 0.5657563632559552
+  },
+  {
+    "annee": 1968.0,
+    "entrees": 203240000.0,
+    "recette": 119493960.73218215,
+    "recette_moyenne": 0.5879450931518507
+  },
+  {
+    "annee": 1969.0,
+    "entrees": 183880000.0,
+    "recette": 122936107.09238563,
+    "recette_moyenne": 0.6685670387882621
+  },
+  {
+    "annee": 1970.0,
+    "entrees": 184420000.0,
+    "recette": 134471466.87968877,
+    "recette_moyenne": 0.7291588053339593
+  },
+  {
+    "annee": 1971.0,
+    "entrees": 176980000.0,
+    "recette": 142214962.2612458,
+    "recette_moyenne": 0.8035651613812057
+  },
+  {
+    "annee": 1972.0,
+    "entrees": 184400000.0,
+    "recette": 164370835.28341034,
+    "recette_moyenne": 0.8913819700835702
+  },
+  {
+    "annee": 1973.0,
+    "entrees": 175960000.0,
+    "recette": 179094513.817217,
+    "recette_moyenne": 1.0178137861855934
+  },
+  {
+    "annee": 1974.0,
+    "entrees": 179400000.0,
+    "recette": 207205960.14677793,
+    "recette_moyenne": 1.154994203716711
+  },
+  {
+    "annee": 1975.0,
+    "entrees": 181670000.0,
+    "recette": 239762819.81898203,
+    "recette_moyenne": 1.3197711224692137
+  },
+  {
+    "annee": 1976.0,
+    "entrees": 177290000.0,
+    "recette": 267784168.77935597,
+    "recette_moyenne": 1.5104301922237913
+  },
+  {
+    "annee": 1977.0,
+    "entrees": 170250000.0,
+    "recette": 280295507.175013,
+    "recette_moyenne": 1.6463759599119707
+  },
+  {
+    "annee": 1978.0,
+    "entrees": 178540000.0,
+    "recette": 321795178.6473808,
+    "recette_moyenne": 1.8023702175836274
+  },
+  {
+    "annee": 1979.0,
+    "entrees": 178100000.0,
+    "recette": 351991060.3896292,
+    "recette_moyenne": 1.9763675485099899
+  },
+  {
+    "annee": 1980.0,
+    "entrees": 175427100.0,
+    "recette": 430722547.36209846,
+    "recette_moyenne": 2.4552794144239884
+  },
+  {
+    "annee": 1981.0,
+    "entrees": 189231130.0,
+    "recette": 529318004.0764867,
+    "recette_moyenne": 2.7972036317517457
+  },
+  {
+    "annee": 1982.0,
+    "entrees": 201934240.0,
+    "recette": 630711906.4206953,
+    "recette_moyenne": 3.1233529609475603
+  },
+  {
+    "annee": 1983.0,
+    "entrees": 198867990.0,
+    "recette": 671337785.8609635,
+    "recette_moyenne": 3.3757961040435087
+  },
+  {
+    "annee": 1984.0,
+    "entrees": 190867100.0,
+    "recette": 682611192.5019475,
+    "recette_moyenne": 3.5763690678065916
+  },
+  {
+    "annee": 1985.0,
+    "entrees": 175078790.0,
+    "recette": 665926836.6676475,
+    "recette_moyenne": 3.8035837274614903
+  },
+  {
+    "annee": 1986.0,
+    "entrees": 168128678.0,
+    "recette": 675740254.3154505,
+    "recette_moyenne": 4.01918496210058
+  },
+  {
+    "annee": 1987.0,
+    "entrees": 136943750.0,
+    "recette": 577483432.6030518,
+    "recette_moyenne": 4.216938944661964
+  },
+  {
+    "annee": 1988.0,
+    "entrees": 124749280.0,
+    "recette": 553727759.5939978,
+    "recette_moyenne": 4.438725093996517
+  },
+  {
+    "annee": 1989.0,
+    "entrees": 120913680.0,
+    "recette": 560835771.2472006,
+    "recette_moyenne": 4.63831529440838
+  },
+  {
+    "annee": 1990.0,
+    "entrees": 121924502.0,
+    "recette": 583287654.5261351,
+    "recette_moyenne": 4.78400686456062
+  },
+  {
+    "annee": 1991.0,
+    "entrees": 117498089.0,
+    "recette": 591688327.1311991,
+    "recette_moyenne": 5.035727237497446
+  },
+  {
+    "annee": 1992.0,
+    "entrees": 115995140.0,
+    "recette": 600823682.0401337,
+    "recette_moyenne": 5.179731513235241
+  },
+  {
+    "annee": 1993.0,
+    "entrees": 132723710.0,
+    "recette": 688920310.3252195,
+    "recette_moyenne": 5.190634818188999
+  },
+  {
+    "annee": 1994.0,
+    "entrees": 124418791.0,
+    "recette": 653519170.9212646,
+    "recette_moyenne": 5.252576123499421
+  },
+  {
+    "annee": 1995.0,
+    "entrees": 130235477.0,
+    "recette": 690126525.0618562,
+    "recette_moyenne": 5.299067051152707
+  },
+  {
+    "annee": 1996.0,
+    "entrees": 136740585.0,
+    "recette": 725978370.6858833,
+    "recette_moyenne": 5.309165312448263
+  },
+  {
+    "annee": 1997.0,
+    "entrees": 149259034.0,
+    "recette": 790171071.23,
+    "recette_moyenne": 5.293958094556609
+  },
+  {
+    "annee": 1998.0,
+    "entrees": 170602623.90999997,
+    "recette": 917026015.2199999,
+    "recette_moyenne": 5.375216360703629
+  },
+  {
+    "annee": 1999.0,
+    "entrees": 153608169.0,
+    "recette": 823965938.76,
+    "recette_moyenne": 5.364076299613988
+  },
+  {
+    "annee": 2000.0,
+    "entrees": 165757514.0,
+    "recette": 893951145.3900001,
+    "recette_moyenne": 5.393125921217665
+  },
+  {
+    "annee": 2001.0,
+    "entrees": 187454333.0,
+    "recette": 1021007439.49,
+    "recette_moyenne": 5.4466995942419745
+  },
+  {
+    "annee": 2002.0,
+    "entrees": 184409642.0,
+    "recette": 1030008866.4499999,
+    "recette_moyenne": 5.585439325618342
+  },
+  {
+    "annee": 2003.0,
+    "entrees": 173457270.02,
+    "recette": 996106316.6700001,
+    "recette_moyenne": 5.742661097774379
+  },
+  {
+    "annee": 2004.0,
+    "entrees": 195845314.0,
+    "recette": 1139839552.41,
+    "recette_moyenne": 5.820101227492224
+  },
+  {
+    "annee": 2005.0,
+    "entrees": 175630961.0,
+    "recette": 1031801871.06,
+    "recette_moyenne": 5.8748290460017465
+  },
+  {
+    "annee": 2006.0,
+    "entrees": 188761628.0,
+    "recette": 1120649313.25,
+    "recette_moyenne": 5.9368491632737985
+  },
+  {
+    "annee": 2007.0,
+    "entrees": 178484148.0,
+    "recette": 1061869248.53,
+    "recette_moyenne": 5.949375675256046
+  },
+  {
+    "annee": 2008.0,
+    "entrees": 190308480.0,
+    "recette": 1142893230.6,
+    "recette_moyenne": 6.005477163182639
+  },
+  {
+    "annee": 2009.0,
+    "entrees": 201623828.0,
+    "recette": 1237235680.22,
+    "recette_moyenne": 6.136356463879855
+  },
+  {
+    "annee": 2010.0,
+    "entrees": 207101105.0,
+    "recette": 1309943916.3799999,
+    "recette_moyenne": 6.325142091250551
+  },
+  {
+    "annee": 2011.0,
+    "entrees": 217199035.0,
+    "recette": 1374735611.3899999,
+    "recette_moyenne": 6.329381764472387
+  },
+  {
+    "annee": 2012.0,
+    "entrees": 203584018.0,
+    "recette": 1306478863.4599998,
+    "recette_moyenne": 6.417394038563478
+  },
+  {
+    "annee": 2013.0,
+    "entrees": 193740613.0,
+    "recette": 1250873538.97,
+    "recette_moyenne": 6.456434299451711
+  },
+  {
+    "annee": 2014.0,
+    "entrees": 209078807.0,
+    "recette": 1333309408.9999998,
+    "recette_moyenne": 6.377066275301637
+  },
+  {
+    "annee": 2015.0,
+    "entrees": 205358718.0,
+    "recette": 1331651208.1099997,
+    "recette_moyenne": 6.484512666805797
+  },
+  {
+    "annee": 2016.0,
+    "entrees": 213204574.0,
+    "recette": 1388446936.4500003,
+    "recette_moyenne": 6.512275559575942
+  },
+  {
+    "annee": 2017.0,
+    "entrees": 209413122.0,
+    "recette": 1380599273.1,
+    "recette_moyenne": 6.5927066074684655
+  },
+  {
+    "annee": 2018.0,
+    "entrees": 201212935.0,
+    "recette": 1336891139.92,
+    "recette_moyenne": 6.644161022351769
+  },
+  {
+    "annee": 2019.0,
+    "entrees": 213223642.0,
+    "recette": 1448657603.98,
+    "recette_moyenne": 6.794075883855318
+  },
+  {
+    "annee": 2020.0,
+    "entrees": 65263714.0,
+    "recette": 432778240.4,
+    "recette_moyenne": 6.63122298556285
+  },
+  {
+    "annee": 2021.0,
+    "entrees": 95502574.0,
+    "recette": 672572394.79,
+    "recette_moyenne": 7.042453062992836
+  },
+  {
+    "annee": 2022.0,
+    "entrees": 152071028.0,
+    "recette": 1094654384.71,
+    "recette_moyenne": 7.1983098891788915
+  },
+  {
+    "annee": 2023.0,
+    "entrees": 180470559.0,
+    "recette": 1334280982.18,
+    "recette_moyenne": 7.393344319280355
+  },
+  {
+    "annee": 2024.0,
+    "entrees": 181598970.0,
+    "recette": 1348254839.88,
+    "recette_moyenne": 7.424352901781327
+  },
+  {
+    "annee": 2025.0,
+    "entrees": 156151628.0,
+    "recette": 1158075751.3000002,
+    "recette_moyenne": 7.416354002405919
+  }
+]

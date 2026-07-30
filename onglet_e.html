@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Onglet E - Structure de l'exploitation</title>
+    <link rel="stylesheet" href="style.css?v=21">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <style>
+        .conteneur-courbe { position: relative; width: 100%; height: 420px; }
+        .conteneur-courbe canvas { width: 100% !important; height: 100% !important; }
+        .conteneur-camembert { position: relative; width: 100%; max-width: 380px; height: 380px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+    <div class="contenu">
+        <span class="tag">Chapitre cinq</span>
+        <h1>Structure de l'exploitation</h1>
+
+        <div class="intro-avec-chiffre" style="margin-top:20px;">
+            <div class="chiffre-cle">51%<span>des écrans détenus par les deux premières enseignes</span></div>
+            <p class="intro">En 1997, Cinémas Gaumont-Pathé exploite 512 écrans. Aujourd'hui ce chiffre atteint 860. Deux groupes dominent, sept autres se partagent le reste sans dépasser dix pour cent chacun.</p>
+        </div>
+
+        <div style="margin-bottom: 28px;">
+            <label for="selecteur-dataset" style="font-size:0.88rem; color:var(--gris); margin-right:10px;">Vue</label>
+            <select id="selecteur-dataset">
+                <option value="exploitants">Principaux exploitants</option>
+                <option value="groupements">Groupements de programmation</option>
+            </select>
+        </div>
+
+        <div class="bloc-graphique">
+            <h3>Écrans par enseigne, dans le temps</h3>
+            <div class="conteneur-courbe"><canvas id="graphique-courbe"></canvas></div>
+        </div>
+
+        <div class="bloc-graphique">
+            <h3>Répartition, dernière année disponible</h3>
+            <p class="commentaire" id="phrase-part-marche"></p>
+            <div class="conteneur-camembert"><canvas id="graphique-camembert"></canvas></div>
+        </div>
+    </div>
+
+    <script>
+        Chart.register(ChartDataLabels);
+        Chart.defaults.font.family = "'Archivo', sans-serif";
+        Chart.defaults.font.size = 12;
+        Chart.defaults.color = "#666B7A";
+
+        var donneesCompletes = null;
+        var graphiqueCourbe = null;
+        var graphiqueCamembert = null;
+
+        function couleurPourChaine(nom, i) {
+            if (nom === "Cinémas Gaumont-Pathé") return "#9B5DE5";
+            if (nom === "UGC") return "#FF8C32";
+            var teintes = ["#8C8C99", "#A8937A", "#7A9E99", "#9E8CA8", "#A8A87A", "#7A8CA8", "#A87A8C", "#8FA88C", "#B08C8C"];
+            return teintes[i % teintes.length];
+        }
+
+        function afficherCourbe(dataset) {
+            var d = donneesCompletes[dataset];
+            var chaines = Object.keys(d.chaines);
+
+            var datasets = chaines.map(function(chaine, i) {
+                return { label: chaine, data: d.chaines[chaine], borderColor: couleurPourChaine(chaine, i), borderWidth: 2, pointRadius: 0, fill: false };
+            });
+
+            if (graphiqueCourbe) { graphiqueCourbe.destroy(); }
+
+            graphiqueCourbe = new Chart(document.getElementById('graphique-courbe'), {
+                type: 'line',
+                data: { labels: d.annees, datasets: datasets },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { font: { size: 11 } } }, datalabels: { display: false } },
+                    scales: { y: { title: { display: true, text: "Nombre d'écrans" }, grid: { color: "#F2F2F5" } } }
+                }
+            });
+        }
+
+        function afficherCamembert(dataset) {
+            var d = donneesCompletes[dataset];
+            var derniereAnnee = d.annees[d.annees.length - 1];
+            var chaines = Object.keys(d.chaines);
+
+            var valeurs = {};
+            chaines.forEach(function(chaine) {
+                var serie = d.chaines[chaine];
+                for (var i = serie.length - 1; i >= 0; i--) {
+                    if (serie[i] !== null) { valeurs[chaine] = serie[i]; break; }
+                }
+            });
+
+            var total = Object.values(valeurs).reduce(function(a, b) { return a + b; }, 0);
+            var labels = Object.keys(valeurs);
+            var data = labels.map(function(l) { return Math.round((valeurs[l] / total) * 1000) / 10; });
+
+            if (graphiqueCamembert) { graphiqueCamembert.destroy(); }
+
+            graphiqueCamembert = new Chart(document.getElementById('graphique-camembert'), {
+                type: 'pie',
+                data: { labels: labels, datasets: [{ data: data, backgroundColor: labels.map(function(l, i) { return couleurPourChaine(l, i); }) }] },
+                options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } }, datalabels: { color: "#fff", font: { weight: "bold", size: 11 }, formatter: function(v) { return v + "%"; } } } }
+            });
+
+            var triees = labels.slice().sort(function(a, b) { return valeurs[b] - valeurs[a]; });
+            var deuxPremiers = valeurs[triees[0]] + valeurs[triees[1]];
+            var partDeuxPremiers = Math.round((deuxPremiers / total) * 100);
+            document.getElementById('phrase-part-marche').innerText =
+                triees[0] + " et " + triees[1] + " réunis contrôlent " + partDeuxPremiers + "% des écrans de ce classement (" + derniereAnnee + ").";
+        }
+
+        function afficherTout() {
+            var dataset = document.getElementById('selecteur-dataset').value;
+            afficherCourbe(dataset);
+            afficherCamembert(dataset);
+        }
+
+        fetch('exploitation.json')
+            .then(function(reponse) { return reponse.json(); })
+            .then(function(donnees) {
+                donneesCompletes = donnees;
+                afficherTout();
+                document.getElementById('selecteur-dataset').addEventListener('change', afficherTout);
+            });
+    </script>
+
+</body>
+</html>
