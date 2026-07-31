@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Onglet B - Parc cinématographique</title>
+    <link rel="stylesheet" href="style.css?v=31">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .conteneur-graphique { position: relative; width: 100%; height: 320px; }
+        .conteneur-graphique canvas { width: 100% !important; height: 100% !important; }
+    </style>
+</head>
+<body>
+
+    <div class="contenu" style="--couleur-section:#2FA84F;">
+        <h1>Écrans et salles de cinéma</h1>
+
+        <div class="intro-avec-chiffre" style="margin-top:20px;">
+            <div class="chiffre-cle">Un nouveau<br>tous les 6 jours<span>rythme moyen d'ouverture depuis 1992</span></div>
+            <p class="intro">Depuis le début des années 1990, le nombre d'écrans en France progresse presque sans interruption, pendant que le nombre d'établissements, lui, stagne puis recule légèrement. Une même salle accueille aujourd'hui, en moyenne, davantage d'écrans qu'il y a trente ans. Le mouvement n'a pourtant pas été continu : un creux net apparaît au milieu des années 2010, y compris dans le nombre d'établissements, avant que la tendance ne reparte à la hausse.</p>
+        </div>
+
+        <div class="bloc-graphique">
+            <h3>Écrans et établissements</h3>
+            <div class="conteneur-graphique"><canvas id="graphique-parc"></canvas></div>
+        </div>
+    </div>
+
+    <script>
+        Chart.defaults.font.family = "'Poppins', sans-serif";
+        Chart.defaults.font.size = 12;
+        Chart.defaults.color = "#A9A7A0";
+
+        fetch('parc.json')
+            .then(function(reponse) { return reponse.json(); })
+            .then(function(donnees) {
+
+                var annees = donnees.map(function(d) { return d.annee; });
+                var ecrans = donnees.map(function(d) { return d.ecrans; });
+                var etablissements = donnees.map(function(d) { return d.etablissements; });
+
+                new Chart(document.getElementById('graphique-parc'), {
+                    type: 'line',
+                    data: {
+                        labels: annees,
+                        datasets: [
+                            { label: "Nombre d'écrans", data: ecrans, borderColor: "#1A4FE0", borderWidth: 2, pointRadius: 0, yAxisID: 'y', fill: false },
+                            { label: "Nombre d'établissements", data: etablissements, borderColor: "#2FA84F", borderWidth: 2, pointRadius: 0, yAxisID: 'y1', fill: false }
+                        ]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: { legend: { labels: { font: { size: 12 } } } },
+                        scales: {
+                            y: { type: 'linear', position: 'left', title: { display: true, text: "Écrans" }, grid: { color: "rgba(255,255,255,0.07)" } },
+                            y1: { type: 'linear', position: 'right', title: { display: true, text: "Établissements" }, grid: { drawOnChartArea: false } }
+                        }
+                    }
+                });
+            });
+    </script>
+
+</body>
+</html>

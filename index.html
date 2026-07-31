@@ -3,56 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Cinémas en France</title>
-    <link rel="stylesheet" href="style.css?v=21">
+    <link rel="stylesheet" href="style.css?v=31">
     <style>
-        body { padding: 0; }
-
         .hero {
-            padding: 50px 24px 40px 24px;
+            max-width: 940px;
+            margin: 40px auto 0 auto;
+            padding: 0 34px;
         }
-        .hero-interieur {
-            max-width: 1080px;
-            margin: 0 auto;
-        }
-
-        .micro-grille {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1px;
-            background: rgba(20,23,43,0.2);
-            border: 1px solid rgba(20,23,43,0.2);
-            margin-bottom: 34px;
-            max-width: 640px;
-        }
-        .micro-grille div {
-            background: var(--rouge);
-            padding: 10px 12px;
-            font-family: 'Archivo', sans-serif;
-        }
-        .micro-grille .valeur {
-            font-family: 'Archivo Black', sans-serif;
-            color: var(--encre);
-            font-size: 1.2rem;
-            line-height: 1;
-        }
-        .micro-grille .label {
-            color: rgba(20,23,43,0.65);
-            font-size: 0.62rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-top: 4px;
-        }
-
-        .hero h1 {
-            color: var(--encre);
-            font-size: clamp(2.4rem, 6.4vw, 4.4rem);
-            line-height: 0.95;
-            margin: 0 0 34px 0;
+        .hero p {
+            color: var(--texte-att);
+            font-size: 1rem;
+            max-width: 560px;
+            margin: 0 0 30px 0;
         }
 
         .cadre-carte {
-            border: 5px solid #fff;
-            border-radius: 2px;
+            max-width: 940px;
+            margin: 0 auto 6px auto;
+            padding: 0 34px;
+        }
+        .cadre-carte-interieur {
+            border: 1px solid var(--trait);
+            border-radius: 20px;
             overflow: hidden;
         }
         #zone-carte {
@@ -64,41 +36,46 @@
 
         #zone-onglet {
             width: 100%;
-            height: 1560px;
+            height: 1200px;
             border: none;
             display: block;
+            overflow: hidden;
         }
     </style>
 </head>
 <body>
 
     <div class="hero">
-        <div class="hero-interieur">
-            <span class="tag">Atlas du cinéma français</span>
-            <h1>Cinémas<br>en France</h1>
+        <span class="tag">Cartographie du cinéma français</span>
+        <h1>Une géographie du grand écran</h1>
+        <p>Chaque adresse en France a un cinéma le plus proche, parfois à quelques rues, parfois à plusieurs communes de là. Ce site part de ce repère simple pour remonter vers des questions plus larges : combien d'entrées le pays a perdues en une décennie, comment le parc s'est recomposé autour du multiplexe, quels départements concentrent les salles, qui va voir quoi, et qui possède quoi. Une carte, puis cinq lectures d'un même sujet.</p>
+    </div>
 
-            <div class="micro-grille">
-                <div><div class="valeur">2 081</div><div class="label">Cinémas</div></div>
-                <div><div class="valeur">96</div><div class="label">Départements</div></div>
-                <div><div class="valeur">1938</div><div class="label">Première donnée</div></div>
-                <div><div class="valeur">2025</div><div class="label">Dernière donnée</div></div>
-            </div>
-
-            <div class="cadre-carte">
-                <iframe id="zone-carte" src="carte.html?v=21"></iframe>
-            </div>
+    <div class="cadre-carte">
+        <div class="cadre-carte-interieur">
+            <iframe id="zone-carte" src="carte.html?v=31"></iframe>
         </div>
     </div>
 
+    <div style="height:24px;"></div>
+
     <div class="nav-onglets">
-        <button class="onglet-bouton actif" data-page="onglet_a.html?v=21">Entrées &amp; recettes</button>
-        <button class="onglet-bouton" data-page="onglet_b.html?v=21">Évolution du parc</button>
-        <button class="onglet-bouton" data-page="onglet_c.html?v=21">Répartition territoriale</button>
-        <button class="onglet-bouton" data-page="onglet_d.html?v=21">Profil du public</button>
-        <button class="onglet-bouton" data-page="onglet_e.html?v=21">Structure de l'exploitation</button>
+        <button class="onglet-bouton actif" style="--couleur-bouton:#FF8C32;" data-page="onglet_a.html?v=31">Spectateurs et recettes</button>
+        <button class="onglet-bouton" style="--couleur-bouton:#2FA84F;" data-page="onglet_b.html?v=31">Écrans et salles de cinéma</button>
+        <button class="onglet-bouton" style="--couleur-bouton:#2E86FF;" data-page="onglet_c.html?v=31">Les départements du cinéma</button>
+        <button class="onglet-bouton" style="--couleur-bouton:#EF476F;" data-page="onglet_d.html?v=31">Profil du public</button>
+        <button class="onglet-bouton" style="--couleur-bouton:#9B5DE5;" data-page="onglet_e.html?v=31">Qui possède les cinémas</button>
     </div>
 
-    <iframe id="zone-onglet" src="onglet_a.html?v=21"></iframe>
+    <iframe id="zone-onglet" src="onglet_a.html?v=31" scrolling="no"></iframe>
+
+    <footer style="max-width:940px; margin:10px auto 60px auto; padding:34px 34px 0 34px; border-top:1px solid var(--trait);">
+        <div style="font-size:0.85rem; color:var(--texte-att);">
+            <strong style="color:var(--texte); display:block; margin-bottom:6px;">Sources</strong>
+            Centre national du cinéma et de l'image animée<br>
+            Ministère de la Culture
+        </div>
+    </footer>
 
     <script>
         var boutons = document.querySelectorAll('.onglet-bouton');
@@ -109,12 +86,15 @@
                 var hauteur = iframeOnglet.contentWindow.document.body.scrollHeight;
                 iframeOnglet.style.height = (hauteur + 20) + 'px';
             } catch (e) {
-                // Si jamais l'accès au contenu échoue, on garde une hauteur de secours
                 iframeOnglet.style.height = '1200px';
             }
         }
 
-        iframeOnglet.addEventListener('load', ajusterHauteur);
+        iframeOnglet.addEventListener('load', function() {
+            ajusterHauteur();
+            setTimeout(ajusterHauteur, 300);
+            setTimeout(ajusterHauteur, 900);
+        });
 
         boutons.forEach(function(bouton) {
             bouton.addEventListener('click', function() {
