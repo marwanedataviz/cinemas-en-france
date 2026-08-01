@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Carte des cinémas</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css?v=32">
+    <style>
+        body { background: transparent; }
+        #carte { height: 100vh; width: 100%; }
+
+        .panneau-recherche {
+            position: absolute;
+            z-index: 1000;
+            top: 16px;
+            left: 60px;
+            background: var(--panneau-clair);
+            border: 1px solid var(--trait);
+            border-radius: 16px;
+            box-shadow: 0 10px 26px rgba(0,0,0,0.10);
+            padding: 18px;
+            max-height: 85vh;
+            overflow-y: auto;
+            width: 280px;
+        }
+        .panneau-recherche h3 { margin: 0 0 12px 0; font-size: 0.95rem; }
+        .panneau-recherche input, .panneau-recherche button {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+        .bouton-secondaire {
+            width: 100%;
+            background: var(--panneau);
+            color: var(--accent);
+            border: 1.5px solid var(--accent);
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        #resultat-recherche {
+            font-size: 0.8rem;
+            color: var(--texte-att);
+            margin-top: 6px;
+        }
+        #liste-cinemas-proches {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            font-size: 0.8rem;
+        }
+        #liste-cinemas-proches li {
+            border-bottom: 1px solid var(--trait);
+            padding: 8px 0;
+            cursor: pointer;
+        }
+        #liste-cinemas-proches li:hover { color: var(--accent); }
+
+        /* --- Fiche active : vient au premier plan au clic --- */
+        .fiche-active {
+            position: fixed;
+            z-index: 1200;
+            right: 24px;
+            bottom: 24px;
+            width: 320px;
+            max-height: 66vh;
+            overflow-y: auto;
+            background: var(--panneau-clair);
+            border-radius: 18px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+            padding: 24px;
+            transform: translateY(24px) scale(0.94);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.28s cubic-bezier(.2,.8,.2,1), opacity 0.22s ease;
+        }
+        .fiche-active.visible {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .fiche-active__fermer {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--texte-att);
+            cursor: pointer;
+            line-height: 1;
+        }
+        .fiche-active h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--texte);
+            font-size: 1.1rem;
+            margin: 0 0 4px 0;
+            padding-right: 20px;
+        }
+        .fiche-active .adresse {
+            color: var(--texte-att);
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+        }
+        .fiche-active__grille {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .fiche-active__stat {
+            background: var(--fond);
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+        .fiche-active__stat .valeur {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--texte);
+        }
+        .fiche-active__stat .label {
+            font-size: 0.68rem;
+            color: var(--texte-att);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 640px) {
+            .fiche-active {
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                border-radius: 18px 18px 0 0;
+                max-height: 60vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="panneau-recherche">
+        <h3>Cinémas à proximité</h3>
+        <button class="bouton-secondaire" id="bouton-geoloc">📍 Autour de moi</button>
+        <input type="text" id="recherche-adresse" placeholder="Tapez une adresse...">
+        <button class="action" id="bouton-recherche">Rechercher</button>
+        <div id="resultat-recherche"></div>
+        <ul id="liste-cinemas-proches"></ul>
+    </div>
+
+    <div id="carte"></div>
+
+    <div class="fiche-active" id="fiche-active">
+        <button class="fiche-active__fermer" id="fermer-fiche">✕</button>
+        <h4 id="fiche-nom"></h4>
+        <div class="adresse" id="fiche-adresse"></div>
+        <div class="fiche-active__grille">
+            <div class="fiche-active__stat"><div class="valeur" id="fiche-ecrans">—</div><div class="label">Écrans</div></div>
+            <div class="fiche-active__stat"><div class="valeur" id="fiche-fauteuils">—</div><div class="label">Fauteuils</div></div>
+            <div class="fiche-active__stat"><div class="valeur" id="fiche-ae">—</div><div class="label">Art &amp; essai</div></div>
+            <div class="fiche-active__stat"><div class="valeur" id="fiche-3d">—</div><div class="label">3D</div></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        var carte = L.map('carte').setView([46.6, 2.3], 6);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(carte);
+
+        function couleurSelonValeur(valeur) {
+            if (valeur === null || valeur === undefined) return "#26262A";
+            if (valeur > 60) return "#8C1015";
+            if (valeur > 40) return "#B81E24";
+            if (valeur > 25) return "#E5484D";
+            if (valeur > 15) return "#F27479";
+            if (valeur > 8)  return "#F5A0A3";
+            return "#3A2426";
+        }
+
+        fetch('departements_enrichi.geojson')
+            .then(function(reponse) { return reponse.json(); })
+            .then(function(donnees) {
+                L.geoJSON(donnees, {
+                    style: function(feature) {
+                        return {
+                            fillColor: couleurSelonValeur(feature.properties.nb_cinemas_2024),
+                            weight: 1,
+                            color: "#3A3A3E",
+                            fillOpacity: 0.75
+                        };
+                    },
+                    onEachFeature: function(feature, layer) {
+                        var valeur = feature.properties.nb_cinemas_2024;
+                        var texte = valeur !== null ? valeur + " cinémas" : "Donnée non disponible";
+                        layer.bindTooltip(feature.properties.nom + " — " + texte);
+                    }
+                }).addTo(carte);
+            });
+
+        // --- Fiche active : ouverture / fermeture ---
+        function ouvrirFiche(props) {
+            document.getElementById('fiche-nom').innerText = props.nom;
+            document.getElementById('fiche-adresse').innerText = props.adresse || "";
+            document.getElementById('fiche-ecrans').innerText = props.ecrans != null ? props.ecrans : "—";
+            document.getElementById('fiche-fauteuils').innerText = props.fauteuils != null ? props.fauteuils : "—";
+            document.getElementById('fiche-ae').innerText = props.art_et_essai || "—";
+            document.getElementById('fiche-3d').innerText = props.disponible_3D || "—";
+            document.getElementById('fiche-active').classList.add('visible');
+        }
+        document.getElementById('fermer-fiche').addEventListener('click', function() {
+            document.getElementById('fiche-active').classList.remove('visible');
+        });
+
+        var donneesCinemas = null;
+        var marqueurRecherche = null;
+        var marqueursCinemas = {};
+
+        fetch('cinemas_final.geojson')
+            .then(function(reponse) { return reponse.json(); })
+            .then(function(donnees) {
+                donneesCinemas = donnees;
+
+                L.geoJSON(donnees, {
+                    pointToLayer: function(feature, latlng) {
+                        var marqueur = L.circleMarker(latlng, {
+                            radius: 4,
+                            fillColor: "#F2F0EA",
+                            color: "#E5484D",
+                            weight: 1.5,
+                            fillOpacity: 0.95
+                        });
+                        return marqueur;
+                    },
+                    onEachFeature: function(feature, layer) {
+                        layer.on('click', function() {
+                            ouvrirFiche(feature.properties);
+                        });
+                        if (feature.properties.nom) {
+                            marqueursCinemas[feature.properties.nom + "|" + feature.properties.adresse] = layer;
+                        }
+                    }
+                }).addTo(carte);
+            });
+
+        function calculerDistance(lat1, lon1, lat2, lon2) {
+            var R = 6371000;
+            var rad = Math.PI / 180;
+            var dLat = (lat2 - lat1) * rad;
+            var dLon = (lon2 - lon1) * rad;
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.cos(lat1 * rad) * Math.cos(lat2 * rad) *
+                    Math.sin(dLon/2) * Math.sin(dLon/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        function afficherCinemasProches(lat, lon) {
+            carte.setView([lat, lon], 14);
+
+            if (marqueurRecherche) { carte.removeLayer(marqueurRecherche); }
+            marqueurRecherche = L.marker([lat, lon]).addTo(carte);
+
+            var cinemasProches = [];
+            donneesCinemas.features.forEach(function(feature) {
+                var lonCinema = feature.geometry.coordinates[0];
+                var latCinema = feature.geometry.coordinates[1];
+                var distance = calculerDistance(lat, lon, latCinema, lonCinema);
+                if (distance <= 1000) {
+                    cinemasProches.push({
+                        nom: feature.properties.nom,
+                        adresse: feature.properties.adresse,
+                        distance: Math.round(distance),
+                        props: feature.properties
+                    });
+                }
+            });
+
+            cinemasProches.sort(function(a, b) { return a.distance - b.distance; });
+
+            var liste = document.getElementById('liste-cinemas-proches');
+            liste.innerHTML = "";
+
+            if (cinemasProches.length === 0) {
+                document.getElementById('resultat-recherche').innerText = "Aucun cinéma à moins de 1000m.";
+            } else {
+                document.getElementById('resultat-recherche').innerText = cinemasProches.length + " cinéma(s) trouvé(s) :";
+                cinemasProches.forEach(function(c) {
+                    var item = document.createElement('li');
+                    item.innerText = c.nom + " (" + c.distance + "m) — " + c.adresse;
+                    item.addEventListener('click', function() { ouvrirFiche(c.props); });
+                    liste.appendChild(item);
+                });
+            }
+        }
+
+        document.getElementById('bouton-recherche').addEventListener('click', function() {
+            var adresse = document.getElementById('recherche-adresse').value;
+            if (!adresse) return;
+
+            document.getElementById('resultat-recherche').innerText = "Recherche en cours...";
+
+            fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(adresse))
+                .then(function(reponse) { return reponse.json(); })
+                .then(function(resultats) {
+                    if (resultats.length === 0) {
+                        document.getElementById('resultat-recherche').innerText = "Adresse introuvable.";
+                        return;
+                    }
+                    var lat = parseFloat(resultats[0].lat);
+                    var lon = parseFloat(resultats[0].lon);
+                    afficherCinemasProches(lat, lon);
+                });
+        });
+
+        document.getElementById('bouton-geoloc').addEventListener('click', function() {
+            if (!navigator.geolocation) {
+                document.getElementById('resultat-recherche').innerText = "Géolocalisation non disponible.";
+                return;
+            }
+            document.getElementById('resultat-recherche').innerText = "Localisation en cours...";
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    afficherCinemasProches(position.coords.latitude, position.coords.longitude);
+                },
+                function() {
+                    document.getElementById('resultat-recherche').innerText = "Localisation refusée ou indisponible.";
+                }
+            );
+        });
+    </script>
+
+</body>
+</html>

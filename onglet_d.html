@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Onglet D - Profil du public</title>
+    <link rel="stylesheet" href="style.css?v=32">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <style>
+        .conteneur-petit { position: relative; width: 100%; height: 220px; }
+        .conteneur-petit canvas { width: 100% !important; height: 100% !important; }
+        .comparaison-conteneur { position: relative; width: 100%; height: 310px; }
+        .comparaison-conteneur canvas { width: 100% !important; height: 100% !important; }
+    </style>
+</head>
+<body>
+
+    <div class="contenu" style="--couleur-section:#EF476F;">
+        <h1>Profil du public</h1>
+
+        <div class="intro-avec-chiffre" style="margin-top:20px;">
+            <div class="chiffre-cle">46%<span>du public des films français a 50 ans ou plus</span></div>
+            <p class="intro">Le cinéma ne rassemble pas un seul public, mais plusieurs, qui ne se recoupent qu'en partie selon la nationalité ou le genre du film. Cinq dimensions permettent de les distinguer : le sexe, l'âge, la catégorie socio-professionnelle, le lieu d'habitation et la régularité de fréquentation. Le film français et le film américain, notamment, ne parlent visiblement pas aux mêmes générations. Le cinéma français vieillit avec son public ; le cinéma américain, lui, continue de recruter chez les plus jeunes.</p>
+        </div>
+
+        <div style="margin-bottom: 28px;">
+            <label for="selecteur-categorie" style="font-size:0.88rem; color:var(--texte-att); margin-right:10px;">Catégorie</label>
+            <select id="selecteur-categorie"></select>
+        </div>
+
+        <div class="grille-analytique" style="margin-bottom: 40px;">
+            <div class="bloc-graphique">
+                <h3>Sexe</h3>
+                <div class="conteneur-petit"><canvas id="graphique-sexe"></canvas></div>
+                <p style="font-size:0.85rem; color:var(--texte-att); margin:10px 0 0 0;">Répartition du public selon le genre déclaré.</p>
+                <p class="commentaire" id="phrase-sexe"></p>
+            </div>
+            <div class="bloc-graphique">
+                <h3>Âge</h3>
+                <div class="conteneur-petit"><canvas id="graphique-age"></canvas></div>
+                <p style="font-size:0.85rem; color:var(--texte-att); margin:10px 0 0 0;">Répartition du public par tranche d'âge.</p>
+                <p class="commentaire" id="phrase-age"></p>
+            </div>
+            <div class="bloc-graphique">
+                <h3>Catégorie socio-pro</h3>
+                <div class="conteneur-petit"><canvas id="graphique-csp"></canvas></div>
+                <p style="font-size:0.85rem; color:var(--texte-att); margin:10px 0 0 0;">Répartition selon la catégorie professionnelle : actifs, inactifs, retraités, étudiants...</p>
+                <p class="commentaire" id="phrase-csp"></p>
+            </div>
+            <div class="bloc-graphique">
+                <h3>Habitat</h3>
+                <div class="conteneur-petit"><canvas id="graphique-habitat"></canvas></div>
+                <p style="font-size:0.85rem; color:var(--texte-att); margin:10px 0 0 0;">Répartition selon que le spectateur vit en région parisienne ou ailleurs en France.</p>
+                <p class="commentaire" id="phrase-habitat"></p>
+            </div>
+            <div class="bloc-graphique">
+                <h3>Fréquentation</h3>
+                <div class="conteneur-petit"><canvas id="graphique-frequentation"></canvas></div>
+                <p style="font-size:0.85rem; color:var(--texte-att); margin:10px 0 0 0;">Répartition selon la régularité de fréquentation en salle : assidus, réguliers, occasionnels.</p>
+                <p class="commentaire" id="phrase-frequentation"></p>
+            </div>
+        </div>
+
+        <div class="bloc-graphique">
+            <h3>Français vs américains, par âge</h3>
+            <div class="comparaison-conteneur"><canvas id="graphique-comparaison"></canvas></div>
+            <p class="commentaire" id="commentaire-comparaison"></p>
+        </div>
+    </div>
+
+    <script>
+        Chart.register(ChartDataLabels);
+        Chart.defaults.font.family = "'Poppins', sans-serif";
+        Chart.defaults.font.size = 12;
+        Chart.defaults.color = "#A9A7A0";
+
+        var donneesCompletes = null;
+        var graphiques = {};
+        var couleurs = ["#1A4FE0", "#EF476F", "#2FA84F", "#FF8C32", "#9B5DE5"];
+
+        function dernieresValeurs(bloc) {
+            var resultat = {};
+            Object.keys(bloc).forEach(function(item) {
+                var annees = Object.keys(bloc[item]);
+                var derniereAnnee = annees[annees.length - 1];
+                resultat[item] = bloc[item][derniereAnnee];
+            });
+            return resultat;
+        }
+
+        function trouverDominant(valeurs) {
+            var items = Object.keys(valeurs);
+            var meilleur = items[0];
+            items.forEach(function(item) {
+                if (valeurs[item] > valeurs[meilleur]) meilleur = item;
+            });
+            return { item: meilleur, valeur: valeurs[meilleur] };
+        }
+
+        function detruire(id) { if (graphiques[id]) { graphiques[id].destroy(); } }
+
+        function afficherDonut(id, valeurs) {
+            detruire(id);
+            var labels = Object.keys(valeurs);
+            var data = labels.map(function(l) { return Math.round(valeurs[l] * 10) / 10; });
+
+            graphiques[id] = new Chart(document.getElementById(id), {
+                type: 'doughnut',
+                data: { labels: labels, datasets: [{ data: data, backgroundColor: couleurs }] },
+                options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 10 } }, datalabels: { color: "#fff", font: { weight: "bold", size: 12 }, formatter: function(v) { return v + "%"; } } } }
+            });
+        }
+
+        function afficherBarres(id, valeurs) {
+            detruire(id);
+            var trie = Object.entries(valeurs).sort(function(a, b) { return b[1] - a[1]; });
+            var labels = trie.map(function(e) { return e[0]; });
+            var data = trie.map(function(e) { return Math.round(e[1] * 10) / 10; });
+
+            graphiques[id] = new Chart(document.getElementById(id), {
+                type: 'bar',
+                data: { labels: labels, datasets: [{ data: data, backgroundColor: couleurs }] },
+                options: {
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    layout: { padding: { right: 40 } },
+                    plugins: { legend: { display: false }, datalabels: { color: "#F2F0EA", anchor: "end", align: "right", font: { size: 11, weight: "bold" }, formatter: function(v) { return v + "%"; } } },
+                    scales: { x: { display: false, suggestedMax: 100 }, y: { ticks: { font: { size: 11 } } } }
+                }
+            });
+        }
+
+        function afficherCategorie(cheminCategorie) {
+            var parties = cheminCategorie.split("|");
+            var dataset = parties[0];
+            var categorie = parties[1];
+            var bloc = donneesCompletes[dataset][categorie];
+
+            var sexe = dernieresValeurs(bloc.sexe);
+            afficherDonut("graphique-sexe", sexe);
+            var domSexe = trouverDominant(sexe);
+            var equilibre = Math.abs(sexe.femmes - sexe.hommes) < 4;
+            document.getElementById('phrase-sexe').innerText = equilibre
+                ? "Répartition proche de l'équilibre entre hommes et femmes."
+                : "Le public penche du côté " + (domSexe.item === "hommes" ? "masculin" : "féminin") + ".";
+
+            var age = dernieresValeurs(bloc.age);
+            afficherBarres("graphique-age", age);
+            var domAge = trouverDominant(age);
+            document.getElementById('phrase-age').innerText =
+                "La tranche " + domAge.item + " domine. " + (domAge.item.indexOf("senior") !== -1 ? "Un public plutôt âgé." : domAge.item.indexOf("enfant") !== -1 ? "Un public porté par le jeune âge." : "Un public concentré sur les âges actifs.");
+
+            var csp = dernieresValeurs(bloc.csp);
+            afficherBarres("graphique-csp", csp);
+            document.getElementById('phrase-csp').innerText =
+                "Les inactifs forment la part la plus importante, devant les catégories actives.";
+
+            var habitat = dernieresValeurs(bloc.habitat);
+            afficherDonut("graphique-habitat", habitat);
+            document.getElementById('phrase-habitat').innerText =
+                "La majorité de ce public vit hors de la région parisienne.";
+
+            var freq = dernieresValeurs(bloc.frequentation);
+            afficherBarres("graphique-frequentation", freq);
+            var noyauFidele = freq["assidus"] + freq["réguliers"];
+            document.getElementById('phrase-frequentation').innerText = noyauFidele > freq["occasionnels"]
+                ? "Les habitués pèsent plus lourd que les occasionnels."
+                : "Les occasionnels forment la part la plus importante.";
+        }
+
+        function afficherComparaison() {
+            var francais = dernieresValeurs(donneesCompletes.nationalite["Public des films français (%)"].age);
+            var americains = dernieresValeurs(donneesCompletes.nationalite["Public des films américains (%)"].age);
+            var tranches = Object.keys(francais);
+
+            detruire("graphique-comparaison");
+            graphiques["graphique-comparaison"] = new Chart(document.getElementById("graphique-comparaison"), {
+                type: 'bar',
+                data: {
+                    labels: tranches,
+                    datasets: [
+                        { label: "Films français", data: tranches.map(function(t) { return Math.round(francais[t]); }), backgroundColor: "#1A4FE0" },
+                        { label: "Films américains", data: tranches.map(function(t) { return Math.round(americains[t]); }), backgroundColor: "#EF476F" }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    layout: { padding: { top: 30 } },
+                    plugins: { legend: { labels: { font: { size: 12 } } }, datalabels: { color: "#F2F0EA", anchor: "end", align: "top", font: { size: 12, weight: "bold" }, formatter: function(v) { return v + "%"; } } },
+                    scales: { y: { title: { display: true, text: "%" }, grid: { color: "rgba(255,255,255,0.07)" } } }
+                }
+            });
+
+            document.getElementById('commentaire-comparaison').innerText =
+                "L'écart se creuse aux deux extrémités de la pyramide des âges : le français domine chez les seniors, l'américain chez les enfants et les jeunes.";
+        }
+
+        fetch('public.json')
+            .then(function(reponse) { return reponse.json(); })
+            .then(function(donnees) {
+                donneesCompletes = donnees;
+
+                var selecteur = document.getElementById('selecteur-categorie');
+                ["nationalite", "genre"].forEach(function(dataset) {
+                    Object.keys(donnees[dataset]).forEach(function(categorie) {
+                        var option = document.createElement('option');
+                        option.value = dataset + "|" + categorie;
+                        option.innerText = categorie;
+                        selecteur.appendChild(option);
+                    });
+                });
+
+                selecteur.addEventListener('change', function() {
+                    afficherCategorie(this.value);
+                });
+
+                afficherCategorie(selecteur.value);
+                afficherComparaison();
+            });
+    </script>
+
+</body>
+</html>
